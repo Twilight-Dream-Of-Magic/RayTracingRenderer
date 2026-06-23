@@ -1,0 +1,6 @@
+[submodule "includes/glm"]
+	path = includes/glm
+	url = https://github.com/icaven/glm.git
+[submodule "includes/minifb"]
+	path = includes/minifb
+	url = https://github.com/emoon/minifb.git
