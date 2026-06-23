@@ -18,6 +18,7 @@ string(REPLACE "__CMAKE_RBRACKET__" "[]]" APP_SOURCE_GLOB_ROOT "${APP_SOURCE_GLO
 
 file(GLOB_RECURSE APP_SOURCES CONFIGURE_DEPENDS
     "${APP_SOURCE_GLOB_ROOT}/*.cpp"
+    "${APP_SOURCE_GLOB_ROOT}/main_project/*.cpp"
     "${APP_SOURCE_GLOB_ROOT}/*.h"
     "${APP_SOURCE_GLOB_ROOT}/*.hpp"
 )
@@ -33,6 +34,7 @@ endif()
 target_include_directories(RayTracingRenderer PRIVATE
     "${CMAKE_SOURCE_DIR}/includes/minifb/include"
     "${CMAKE_SOURCE_DIR}/includes/glm"
+    "${CMAKE_SOURCE_DIR}/includes/main_project"
 )
 
 add_subdirectory(includes/minifb)
