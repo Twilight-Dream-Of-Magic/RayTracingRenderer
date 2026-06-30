@@ -6,7 +6,20 @@
 
 Renderer::Renderer( uint32_t width, uint32_t height ) : viewport_width(width), viewport_height(height), framebuffer( viewport_width * viewport_height, MFB_RGB( 0, 0, 0 ) )
 {
-	
+	this->current_pixel_index = 0;
+
+	this->camera.Initialize
+	(
+		Vector3DFloat(0.0f, 0.0f, 0.0f), // Camera position
+		Vector3DFloat(0.0f, 0.0f, 1.0f), // target position
+		Vector3DFloat(0.0f, 1.0f, 0.0f), // up vector
+		glm::radians(45.0f), //FOV
+		0.1f, //near plane
+		1000.0f, //far plane
+		width, height //viewport width * height
+	);
+
+	this->sphere = new Sphere(Vector3DFloat(0,0,5), 1.0f);
 }
 
 void Renderer::Run()
@@ -58,12 +71,21 @@ void Renderer::Run()
 
 Color Renderer::RenderPixel( uint32_t x, uint32_t y )
 {
-	Color color(0.0f, 0.0f, 0.0f);
-	color.r = static_cast<float>(x) / viewport_width;
-	color.g = static_cast<float>(y) / viewport_height;
-	color.b = 0.0f;
+	//Color color(0.0f, 0.0f, 0.0f);
 
-	return color;
+	Ray ray = this->camera.GetRay(x ,y);
+
+	Intersection intersect;
+	if(this->sphere != nullptr && this->sphere->Intersect(ray, intersect))
+	{
+		Color color;
+
+		//{-1,1} -> {0,1}
+		color = intersect.normal * 0.5f + 0.5f;
+		return color;
+	}
+
+	return Color(0,0,0);
 }
 
 void Renderer::RenderThread() 

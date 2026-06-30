@@ -1,10 +1,12 @@
 #pragma once
 
-#include <Common.hpp>
-
 #include <atomic>
 #include <thread>
 #include <vector>
+
+#include "Common.hpp"
+#include "Camera.hpp"
+#include "Sphere.hpp"
 
 using Color = glm::vec3;
 
@@ -25,4 +27,7 @@ private:
 	//Viewing pixel each color, minifb: format 0xAARRGGBB (Alpha, Red, Green, Blue)
 	std::vector<uint32_t> framebuffer;
 	std::atomic<uint32_t> current_pixel_index = 0;
+
+	Camera camera;
+	Sphere* sphere;
 };
