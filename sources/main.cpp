@@ -17,7 +17,8 @@ int main()
 {
 	modern_print();
 
-	Renderer renderer(800, 600);
+	Renderer renderer(1920, 1080);
+	renderer.SetScreenSamplePerPixel(100);
 	renderer.Run();
 
 	return 0;
